@@ -2,7 +2,7 @@ import { connectDB } from "@/lib/db";
 import TransactionModel from "@/models/transaction.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT({ params }: { params: { id: string } }, req: NextRequest) {
+export async function PUT(req: NextRequest | Request , { params }: { params: { id: string, }, }) {
   try {
     await connectDB();
 
@@ -26,7 +26,7 @@ export async function PUT({ params }: { params: { id: string } }, req: NextReque
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req:Request ,{ params }: { params: { id: string } }) {
   try {
     await connectDB();
     const { id } = params;
