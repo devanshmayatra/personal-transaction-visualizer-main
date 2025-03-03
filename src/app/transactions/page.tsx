@@ -53,7 +53,7 @@ export default function TransactionsPage() {
       </div>
 
       <Card className="p-4">
-        <TransactionTable transactions={transactions} loading={loading} />
+        <TransactionTable transactions={transactions} loading={loading} fetchTransactions={fetchTransactions} setLoading={setLoading} />
       </Card>
     </div>
   );
