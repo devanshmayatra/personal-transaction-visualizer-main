@@ -29,14 +29,26 @@ export async function PUT (req: NextRequest , res:NextResponse , { params } : { 
 export async function DELETE(req:NextRequest , res:NextResponse ,{ params }: { params: { id: string } }) {
   try {
     await connectDB();
-    const { id } = params;
+
+    // Extract ID from the request URL
+    const url = new URL(req.url);
+    const id = url.pathname.split("/").pop();
+
+    if (!id) {
+      return NextResponse.json({ error: "Transaction ID is required" }, { status: 400 });
+    }
+
+    console.log("Deleting transaction with ID:", id);
+
     const deletedTransaction = await TransactionModel.findByIdAndDelete(id);
+
     if (!deletedTransaction) {
       return NextResponse.json({ error: "Transaction not found" }, { status: 404 });
     }
-    return NextResponse.json({ message: "Transaction deleted successfully" }, { status: 200 });
+
+    return NextResponse.json({ message: "Transaction deleted successfully" });
   } catch (error) {
     console.error("Error deleting transaction:", error);
-    return NextResponse.json({ error: "Failed to delete transaction" }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
