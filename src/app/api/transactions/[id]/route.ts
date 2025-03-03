@@ -26,7 +26,7 @@ export const PUT = async (req: NextRequest | Request , res:NextResponse , { para
   }
 }
 
-export async function DELETE(req:Request , res:NextResponse ,{ params }: { params: { id: string } }) {
+export async function DELETE(req:NextRequest , res:NextResponse ,{ params }: { params: { id: string } }) {
   try {
     await connectDB();
     const { id } = params;
