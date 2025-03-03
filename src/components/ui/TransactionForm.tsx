@@ -59,7 +59,7 @@ export default function TransactionForm({onTransactionAdded}:{onTransactionAdded
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg lg:w-1/2">
       <Input placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
       <Input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-      <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+      <Input placeholder="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
       <Button type="submit" disabled={loading}>
         {loading ? "Adding..." : "Add Transaction"}
       </Button>
