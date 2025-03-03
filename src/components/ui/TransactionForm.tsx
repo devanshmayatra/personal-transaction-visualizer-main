@@ -48,7 +48,7 @@ export default function TransactionForm({onTransactionAdded}:{onTransactionAdded
       setDate("");
       onTransactionAdded();
 
-    } catch(error){
+    } catch{
       toast.error("Error adding transaction");
     } finally {
       setLoading(false);

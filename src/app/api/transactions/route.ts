@@ -16,7 +16,7 @@ export async function GET (){
 export async function POST(req:Request){
   try{
     await connectDB();
-    let body = await req.json(); // Parse request body
+    const body = await req.json(); // Parse request body
 
     const newTransaction = await TransactionModel.create(body);
     await newTransaction.save();

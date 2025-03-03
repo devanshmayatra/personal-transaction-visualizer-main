@@ -19,7 +19,7 @@ export default function TransactionsPage() {
       if (!res.ok) throw new Error("Failed to fetch transactions");
       const data = await res.json();
       setTransactions(data);
-    } catch (error) {
+    } catch {
       toast.error("Error fetching transactions");
     } finally {
       setLoading(false);
