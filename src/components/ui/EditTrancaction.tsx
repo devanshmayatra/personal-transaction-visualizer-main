@@ -24,6 +24,7 @@ export function EditTransaction({ transaction, fetchTransactions }: { transactio
     const handleUpdate = async () => {
         setLoading(true);
         try {
+          console.log(transaction._id);
             const res = await fetch(`/api/transactions/${transaction._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -32,7 +33,7 @@ export function EditTransaction({ transaction, fetchTransactions }: { transactio
 
             if (res.ok) {
                 toast.success("Transaction updated successfully!");
-                fetchTransactions(); // Refresh list
+                fetchTransactions();
                 setOpen(false);
             } else {
                 toast.error("Failed to update transaction.");

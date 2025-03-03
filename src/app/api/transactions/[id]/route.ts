@@ -1,10 +1,10 @@
-// import { connectDB } from "@/lib/db";
+import { connectDB } from "@/lib/db";
 import TransactionModel from "@/models/transaction.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export const PUT = async (req: NextRequest | Request , res:NextResponse , { params } : { params: { id: string } }) =>  {
+export async function PUT (req: NextRequest , res:NextResponse , { params } : { params: { id: string } }) {
   try {
-    // await connectDB();
+    await connectDB();
 
     const { id } = params;
     const body = await req.json();
@@ -28,7 +28,7 @@ export const PUT = async (req: NextRequest | Request , res:NextResponse , { para
 
 export async function DELETE(req:NextRequest , res:NextResponse ,{ params }: { params: { id: string } }) {
   try {
-    // await connectDB();
+    await connectDB();
     const { id } = params;
     const deletedTransaction = await TransactionModel.findByIdAndDelete(id);
     if (!deletedTransaction) {
