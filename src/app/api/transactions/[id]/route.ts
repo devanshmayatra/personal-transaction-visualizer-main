@@ -2,11 +2,12 @@ import { connectDB } from "@/lib/db";
 import TransactionModel from "@/models/transaction.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT (req: NextRequest , res:NextResponse , { params } : { params: { id: string } }) {
+export async function PUT (req: NextRequest) {
   try {
     await connectDB();
 
-    const { id } = params;
+    const url = new URL(req.url);
+    const id = url.pathname.split("/").pop();
     const body = await req.json();
 
     if (!body.amount || !body.date || !body.description) {
