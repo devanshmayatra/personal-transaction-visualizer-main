@@ -30,7 +30,7 @@ export function EditTransaction({ transaction, fetchTransactions }: { transactio
             } else {
                 toast.error("Failed to update transaction.");
             }
-        } catch (error) {
+        } catch {
             toast.error("Error updating transaction.");
         } finally {
             setLoading(false);

@@ -25,7 +25,7 @@ export default function TransactionTable({ transactions, loading, fetchTransacti
       } else {
         toast.error("Failed to delete transaction.");
       }
-    } catch (error) {
+    } catch {
       toast.error("Error deleting transaction.");
     } finally {
       setLoading(false);
