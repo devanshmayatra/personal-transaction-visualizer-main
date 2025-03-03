@@ -57,7 +57,7 @@ export default function TransactionTable({ transactions, loading, fetchTransacti
             <TableRow key={tx._id}>
               <TableCell>{new Date(tx.date).toLocaleDateString()}</TableCell>
               <TableCell>{tx.description}</TableCell>
-              <TableCell className="font-medium">${tx.amount.toFixed(2)}</TableCell>
+              <TableCell className="font-medium">₹{tx.amount.toFixed(2)}</TableCell>
               <TableCell className="space-x-2">
                 <EditTransaction transaction={tx} fetchTransactions={fetchTransactions} />
                 <Button

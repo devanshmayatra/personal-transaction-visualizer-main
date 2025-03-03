@@ -54,7 +54,7 @@ export function EditTransaction({ transaction, fetchTransactions }: { transactio
 
                 <DialogTitle className="text-lg font-bold">Edit Transaction</DialogTitle>
                 <Input name="amount" value={formData.amount} onChange={handleChange} placeholder="Amount" />
-                <Input name="date" type="date" value={formData.date} onChange={handleChange} />
+                <Input name="date" type="date" value={formData.date.toString().split("T")[0]} onChange={handleChange} />
                 <Input name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
                 <Button onClick={handleUpdate} disabled={loading} className="mt-4">
                     {loading ? "Updating..." : "Save Changes"}
