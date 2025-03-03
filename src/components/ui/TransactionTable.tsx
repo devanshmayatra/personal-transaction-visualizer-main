@@ -70,7 +70,7 @@ export default function TransactionTable({ transactions, loading, fetchTransacti
                   onClick={() => handleDelete(tx._id)}
                   disabled={loading}
                 >
-                  Delete
+                  {loading ? "Delete..." : "Delete"}
                 </Button>
               </TableCell>
             </TableRow>

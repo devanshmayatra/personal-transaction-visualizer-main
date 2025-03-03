@@ -12,7 +12,7 @@ export const SummaryCard = ({ title, value }: SummaryCardProps) => {
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-xl font-semibold">{value}</p>
+        <p className="text-l font-semibold">{value}</p>
       </CardContent>
     </Card>
   );
