@@ -26,7 +26,7 @@ export async function PUT (req: NextRequest , res:NextResponse , { params } : { 
   }
 }
 
-export async function DELETE(req:NextRequest , res:NextResponse ,{ params }: { params: { id: string } }) {
+export async function DELETE(req:NextRequest) {
   try {
     await connectDB();
 
@@ -49,6 +49,6 @@ export async function DELETE(req:NextRequest , res:NextResponse ,{ params }: { p
     return NextResponse.json({ message: "Transaction deleted successfully" });
   } catch (error) {
     console.error("Error deleting transaction:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error"}, { status: 500 });
   }
 }
