@@ -49,6 +49,8 @@ export default function TransactionTable({ transactions, loading, fetchTransacti
           <TableHead>Date</TableHead>
           <TableHead>Description</TableHead>
           <TableHead>Amount</TableHead>
+          <TableHead>Edit</TableHead>
+          <TableHead>Delete</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -60,6 +62,8 @@ export default function TransactionTable({ transactions, loading, fetchTransacti
               <TableCell className="font-medium">₹{tx.amount.toFixed(2)}</TableCell>
               <TableCell className="space-x-2">
                 <EditTransaction transaction={tx} fetchTransactions={fetchTransactions} />
+              </TableCell>
+              <TableCell>
                 <Button
                   variant="destructive"
                   size="sm"

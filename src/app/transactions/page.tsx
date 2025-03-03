@@ -54,7 +54,7 @@ export default function TransactionsPage() {
         <SummaryCard title="Recent Transaction" value={recentTransaction} />
       </div>
 
-      <div className="my-5 flex gap-4">
+      <div className="my-5 flex flex-col lg:flex-row gap-4">
         <TransactionForm onTransactionAdded={fetchTransactions} />
         <MonthlyExpensesChart transactions={transactions} />
       </div>
