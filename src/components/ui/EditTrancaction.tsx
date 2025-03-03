@@ -5,7 +5,14 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
-export function EditTransaction({ transaction, fetchTransactions }: { transaction: any, fetchTransactions: () => void }) {
+interface Transaction {
+  _id: string;
+  description: string;
+  amount: number;
+  date: string;
+}
+
+export function EditTransaction({ transaction, fetchTransactions }: { transaction: Transaction, fetchTransactions: () => void }) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({ ...transaction });
     const [loading, setLoading] = useState(false);
