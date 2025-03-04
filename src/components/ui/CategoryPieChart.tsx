@@ -21,15 +21,15 @@ const CategoryPieChart = ({ transactions }: Data) => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#FF6384"];
 
   return (
-    <div className="flex flex-col items-center h-[90%]">
+    <div className="flex flex-col items-center h-[50%] lg:h-[90%]">
       <h2 className="text-lg font-bold mb-4">Category-wise Expenses</h2>
       {pieChartData.length > 0 ? (
-        <PieChart width={500} height={500}>
+        <PieChart width={window.innerWidth < 500 ? 300 : 500} height={window.innerWidth < 500 ? 300 : 500}>
           <Pie
             data={pieChartData}
             cx="50%"
             cy="50%"
-            outerRadius={150}
+            outerRadius={window.innerWidth < 500 ? 100 : 150}
             fill="#8884d8"
             dataKey="value"
             label

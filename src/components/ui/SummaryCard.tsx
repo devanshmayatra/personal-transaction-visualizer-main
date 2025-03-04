@@ -11,17 +11,17 @@ export const SummaryCard = ({ title, value, categoryTotals }: SummaryCardProps) 
   return (
     <Card className="w-full" >
       <CardHeader>
-        <CardTitle className="text-2xl" >{title}</CardTitle>
+        <CardTitle className=" text-xl lg:text-2xl" >{title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex  flex-col flex-wrap" >
         {
           categoryTotals.length > 0 ? categoryTotals.map((total) => (
             <div key={total.category} className="flex gap-2" >
-              <div className="text-lg" key={total.category}>{total.category}</div>
-              <div className="text-lg"> - </div>
-              <div className="text-lg">₹ {total.total}</div>
+              <div className=" text-sm lg:text-lg" key={total.category}>{total.category}</div>
+              <div className=" text-sm lg:text-lg"> - </div>
+              <div className=" text-sm lg:text-lg">₹ {total.total}</div>
             </div>
-          )) : <div className="text-4xl" >{value}</div>
+          )) : <div className="text-xl lg:text-3xl" >{value}</div>
         }
       </CardContent>
     </Card>

@@ -27,10 +27,10 @@ export default function TransactionsPage() {
 
   return (
     <div className="flex flex-col lg:flex-row " >
-      <div className="p-6 w-1/2 h-screen">
+      <div className="p-6 lg:w-1/2 h-screen">
         <MonthlyExpensesChart transactions={transactions} />
       </div>
-      <div className="p-6 w-1/2 h-screen">
+      <div className="p-6 lg:w-1/2 h-[50%] lg:h-screen">
         <CategoryPieChart transactions={transactions}/>
       </div>
     </div>
