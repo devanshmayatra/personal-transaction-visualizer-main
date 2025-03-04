@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
 
     const budgets = await BudgetModel.find({ month });
     return NextResponse.json(budgets, { status: 200 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch budgets" }, { status: 500 });
   }
 }
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     await newBudget.save();
 
     return NextResponse.json(newBudget, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to set budget" }, { status: 500 });
   }
 }
@@ -45,7 +45,7 @@ export async function PUT(req: NextRequest) {
     const updatedBudget = await BudgetModel.findByIdAndUpdate(id, { amount }, { new: true });
 
     return NextResponse.json(updatedBudget, { status: 200 });
-  } catch (error) {
+  } catch  {
     return NextResponse.json({ error: "Failed to update budget" }, { status: 500 });
   }
 }

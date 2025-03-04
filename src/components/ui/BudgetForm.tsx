@@ -33,7 +33,7 @@ export default function BudgetForm({ onBudgetAdded }: { onBudgetAdded: () => voi
       onBudgetAdded();
       setCategory("");
       setAmount("");
-    } catch (error) {
+    } catch {
       toast.error("Failed to add budget");
     }
     setLoading(false);

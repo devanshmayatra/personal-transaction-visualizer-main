@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Transaction } from "@/types/transaction";
 
-export default function SpendingInsights({ transactions }: { transactions: any[] }) {
+export default function SpendingInsights({ transactions }: { transactions: Transaction[] }) {
   const [monthlySpending, setMonthlySpending] = useState<Record<string, number>>({});
   const [biggestCategory, setBiggestCategory] = useState("");
   const [overspendingCategories, setOverspendingCategories] = useState<string[]>([]);
