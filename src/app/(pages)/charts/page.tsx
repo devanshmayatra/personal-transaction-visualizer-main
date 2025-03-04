@@ -2,20 +2,23 @@
 
 import { useState, useEffect } from "react";
 import { MonthlyExpensesChart } from "@/components/ui/MonthlyExpensesChart";
-import { useTransactions } from "@/app/fetcher/useTransactions";
 import { Transaction } from "@/types/transaction";
 import CategoryPieChart from "@/components/ui/CategoryPieChart";
+import { toast } from "sonner";
 
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  // Fetch transactions from API
   const fetchData = async () => {
-    const data = await useTransactions();
-    if (data) {
+    try {
+      const res = await fetch("/api/transactions");
+      if (!res.ok) throw new Error("Failed to fetch transactions");
+      const data = await res.json();
       setTransactions(data);
+    } catch {
+      toast.error("Error fetching transactions");
     }
-  }
+  };
 
   // Fetch transactions from API
   useEffect(() => {
