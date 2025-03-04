@@ -11,7 +11,7 @@ export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
+  const FetchData = async () => {
     const data = await useTransactions();
     if(data){
       setTransactions(data);
@@ -21,17 +21,17 @@ export default function TransactionsPage() {
 
   // Fetch transactions from API
   useEffect(() => {
-    fetchData();
+    FetchData();
   }, [])
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Your Transactions</h1>
       <div className="my-5">
-      <TransactionForm onTransactionAdded={fetchData} />
+      <TransactionForm onTransactionAdded={FetchData} />
       </div>
       <Card className="p-4">
-        <TransactionTable transactions={transactions} change={true} loading={loading} fetchTransactions={fetchData} setLoading={setLoading} />
+        <TransactionTable transactions={transactions} change={true} loading={loading} fetchTransactions={FetchData} setLoading={setLoading} />
       </Card>
     </div>
   );

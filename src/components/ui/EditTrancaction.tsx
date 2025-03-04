@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Transaction } from "@/types/transaction";
 
-export function EditTransaction({ transaction, fetchTransactions, disable }: { transaction: Transaction, fetchTransactions: () => void; disable: boolean }) {
+export function EditTransaction({ transaction, fetchTransactions }: { transaction: Transaction, fetchTransactions: () => void;}) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({ ...transaction });
     const [loading, setLoading] = useState(false);

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import TransactionTable from "@/components/ui/TransactionTable";
 import { SummaryCard } from "@/components/ui/SummaryCard";
-import { MonthlyExpensesChart } from "@/components/ui/MonthlyExpensesChart";
 import { useTransactions } from "@/app/fetcher/useTransactions";
 import { Transaction } from "@/types/transaction";
 import { CategoryTotals } from "@/types/category_total";
@@ -27,7 +26,7 @@ export default function TransactionsPage() {
     )
 
   // Fetch transactions from API
-  const fetchData = async () => {
+  const FetchData = async () => {
       const data = await useTransactions();
       if(data){
         setTransactions(data);
@@ -37,7 +36,7 @@ export default function TransactionsPage() {
   
     // Fetch transactions from API
     useEffect(() => {
-      fetchData();
+      FetchData();
     }, [])
 
   // Calculate total expenses
@@ -49,7 +48,7 @@ export default function TransactionsPage() {
     : "No transactions";
 
 
-    let newTransactions=[];
+    const newTransactions=[];
     for(let i = 0 ; i < 5 ; i++){
       newTransactions[i] = transactions[i];
     }
@@ -65,7 +64,7 @@ export default function TransactionsPage() {
       </div>
 
       <Card className="py-5">
-        <TransactionTable transactions={recentTransactions} change={false} loading={loading} fetchTransactions={fetchData} setLoading={setLoading} />
+        <TransactionTable transactions={recentTransactions} change={false} loading={loading} fetchTransactions={FetchData} setLoading={setLoading} />
       </Card>
     </div>
   );
