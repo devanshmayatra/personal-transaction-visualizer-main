@@ -1,4 +1,4 @@
-import { ChartArea, History, Home, LayoutDashboard } from "lucide-react"
+import { ChartArea, Coins, History, Home, LayoutDashboard } from "lucide-react"
 
 import {
   Sidebar,
@@ -33,6 +33,11 @@ const items = [
     url: "/charts",
     icon: ChartArea,
   },
+  {
+    title: "Budget",
+    url: "/budget",
+    icon: Coins,
+  },
 ]
 
 export default function AppSidebar() {
@@ -40,7 +45,7 @@ export default function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Personal Transaction Visualizer</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

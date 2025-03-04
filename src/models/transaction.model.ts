@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document , models , model } from "mongoose";
 
 export interface Transaction extends Document {
   amount: number;
@@ -28,6 +28,6 @@ const transactionSchema = new Schema({
   timestamps: true
 });
 
-const TransactionModel = mongoose.models.Transaction || mongoose.model<Transaction>("Transaction", transactionSchema);
+const TransactionModel = models.Transaction || model<Transaction>("Transaction", transactionSchema);
 
 export default TransactionModel;

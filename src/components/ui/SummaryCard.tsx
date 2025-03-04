@@ -9,7 +9,7 @@ interface SummaryCardProps {
 
 export const SummaryCard = ({ title, value, categoryTotals }: SummaryCardProps) => {
   return (
-    <Card className="w-full" >
+    <Card className="lg:w-1/2" >
       <CardHeader>
         <CardTitle className=" text-xl lg:text-2xl" >{title}</CardTitle>
       </CardHeader>
