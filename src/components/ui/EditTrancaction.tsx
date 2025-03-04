@@ -1,21 +1,20 @@
+"use client"
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { Transaction } from "@/types/transaction";
 
-interface Transaction {
-  _id: string;
-  description: string;
-  amount: number;
-  date: string;
-}
-
-export function EditTransaction({ transaction, fetchTransactions }: { transaction: Transaction, fetchTransactions: () => void }) {
+export function EditTransaction({ transaction, fetchTransactions, disable }: { transaction: Transaction, fetchTransactions: () => void; disable: boolean }) {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({ ...transaction });
     const [loading, setLoading] = useState(false);
+
+    const categories = ["Food", "Rent", "Entertainment", "Transport", "Fashion", "Others"];
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +23,7 @@ export function EditTransaction({ transaction, fetchTransactions }: { transactio
     const handleUpdate = async () => {
         setLoading(true);
         try {
-          console.log(transaction._id);
+            console.log(transaction._id);
             const res = await fetch(`/api/transactions/${transaction._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
@@ -56,7 +55,20 @@ export function EditTransaction({ transaction, fetchTransactions }: { transactio
                 <Input name="amount" value={formData.amount} onChange={handleChange} placeholder="Amount" />
                 <Input name="date" type="date" value={formData.date.toString().split("T")[0]} onChange={handleChange} />
                 <Input name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
-                <Button onClick={handleUpdate} disabled={loading} className="mt-4">
+                <select
+                    name="category"
+                    defaultValue={formData.category}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
+                    className="w-full p-2 border rounded"
+                >
+                    <option value="" disabled>Select a category</option>
+                    {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                            {cat}
+                        </option>
+                    ))}
+                </select>
+                <Button onClick={handleUpdate} className="mt-4">
                     {loading ? "Updating..." : "Save Changes"}
                 </Button>
             </DialogContent>

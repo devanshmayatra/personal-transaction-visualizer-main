@@ -4,15 +4,20 @@ import { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { EditTransaction } from "./EditTrancaction";
+import { Transaction } from "@/types/transaction";
 
-interface Transaction {
-  _id: string;
-  description: string;
-  amount: number;
-  date: string;
-}
-
-export default function TransactionTable({ transactions, loading, fetchTransactions, setLoading }: { transactions: Transaction[]; loading: boolean; fetchTransactions: () => Promise<void>; setLoading: Dispatch<SetStateAction<boolean>> }) {
+export default function TransactionTable({
+  transactions,
+  loading,
+  fetchTransactions,
+  setLoading,
+  change
+}: {
+  transactions: Transaction[]; loading: boolean;
+  fetchTransactions: () => Promise<void>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  change: boolean
+}) {
 
   const handleDelete = async (id: string) => {
     setLoading(true);
@@ -48,26 +53,28 @@ export default function TransactionTable({ transactions, loading, fetchTransacti
         <TableRow>
           <TableHead>Date</TableHead>
           <TableHead>Description</TableHead>
+          <TableHead>Category</TableHead>
           <TableHead>Amount</TableHead>
-          <TableHead>Edit</TableHead>
-          <TableHead>Delete</TableHead>
+          <TableHead className={`space-x-2 ${!change && `hidden`}`}>Edit</TableHead>
+          <TableHead className={`space-x-2 ${!change && `hidden`}`}>Delete</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {transactions.length > 0 ? (
-          transactions.map((tx) => (
-            <TableRow key={tx._id}>
-              <TableCell>{new Date(tx.date).toLocaleDateString()}</TableCell>
-              <TableCell>{tx.description}</TableCell>
-              <TableCell className="font-medium">₹{tx.amount.toFixed(2)}</TableCell>
-              <TableCell className="space-x-2">
-                <EditTransaction transaction={tx} fetchTransactions={fetchTransactions} />
+          transactions.map((transaction) => (
+            <TableRow key={transaction._id}>
+              <TableCell>{new Date(transaction.date).toLocaleDateString()}</TableCell>
+              <TableCell>{transaction.description}</TableCell>
+              <TableCell>{transaction.category}</TableCell>
+              <TableCell className="font-medium">₹{transaction.amount.toFixed(2)}</TableCell>
+              <TableCell className={`space-x-2 ${!change && `hidden`}`}>
+                <EditTransaction transaction={transaction} disable={change} fetchTransactions={fetchTransactions} />
               </TableCell>
-              <TableCell>
+              <TableCell className={`space-x-2 ${!change && `hidden`}`}>
                 <Button
                   variant="destructive"
                   size="sm"
-                  onClick={() => handleDelete(tx._id)}
+                  onClick={() => handleDelete(transaction._id)}
                   disabled={loading}
                 >
                   {loading ? "Delete..." : "Delete"}

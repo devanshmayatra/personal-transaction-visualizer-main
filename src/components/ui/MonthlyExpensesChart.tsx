@@ -30,14 +30,14 @@ export const MonthlyExpensesChart = ({transactions}:{
   const chartData = processData(transactions);
 
   return(
-    <div className="bg-white p-4 rounded-lg shadow lg:w-1/2" >
+    <div className="bg-white p-4 rounded-lg shadow w-full h-[90%]" >
       <h2 className="text-lg font-semibold mb-3" >Monthly Expenses Chart</h2>
-      <ResponsiveContainer width="100%" height={200} >
+      <ResponsiveContainer width="100%" height="90%" >
         <BarChart data={chartData} >
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="total" fill="#4F46E5"/>
+          <Bar dataKey="total" fill="#0FFF00"/>
         </BarChart>
       </ResponsiveContainer >
     </div>
