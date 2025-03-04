@@ -1,4 +1,4 @@
-import { ChartArea, History, LayoutDashboard } from "lucide-react"
+import { ChartArea, History, Home, LayoutDashboard } from "lucide-react"
 
 import {
   Sidebar,
@@ -13,6 +13,11 @@ import {
 
 // Menu items.
 const items = [
+  {
+    title: "Home",
+    url: "/",
+    icon: Home,
+  },
   {
     title: "Dashboard",
     url: "/transactions",
