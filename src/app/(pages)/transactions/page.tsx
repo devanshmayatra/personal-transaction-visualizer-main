@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import TransactionTable from "@/components/ui/TransactionTable";
 import { SummaryCard } from "@/components/ui/SummaryCard";
-import { useTransactions } from "@/app/fetcher/useTransactions";
 import { Transaction } from "@/types/transaction";
 import { CategoryTotals } from "@/types/category_total";
+import { toast } from "sonner";
 
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -26,17 +26,22 @@ export default function TransactionsPage() {
     )
 
   // Fetch transactions from API
-  const FetchData = async () => {
-      const data = await useTransactions();
-      if(data){
-        setTransactions(data);
-        setLoading(false);
-      }
+  const fetchData = async () => {
+    try {
+      const res = await fetch("/api/transactions");
+      if (!res.ok) throw new Error("Failed to fetch transactions");
+      const data = await res.json();
+      setTransactions(data);
+    } catch {
+      toast.error("Error fetching transactions");
+    } finally {
+      setLoading(false);
     }
+  };
   
     // Fetch transactions from API
     useEffect(() => {
-      FetchData();
+      fetchData();
     }, [])
 
   // Calculate total expenses
@@ -64,7 +69,7 @@ export default function TransactionsPage() {
       </div>
 
       <Card className="py-5">
-        <TransactionTable transactions={recentTransactions} change={false} loading={loading} fetchTransactions={FetchData} setLoading={setLoading} />
+        <TransactionTable transactions={recentTransactions} change={false} loading={loading} fetchTransactions={fetchData} setLoading={setLoading} />
       </Card>
     </div>
   );
