@@ -68,7 +68,7 @@ export default function TransactionTable({
               <TableCell>{transaction.category}</TableCell>
               <TableCell className="font-medium">₹{transaction.amount.toFixed(2)}</TableCell>
               <TableCell className={`space-x-2 ${!change && `hidden`}`}>
-                <EditTransaction transaction={transaction} disable={change} fetchTransactions={fetchTransactions} />
+                <EditTransaction transaction={transaction} fetchTransactions={fetchTransactions} />
               </TableCell>
               <TableCell className={`space-x-2 ${!change && `hidden`}`}>
                 <Button
