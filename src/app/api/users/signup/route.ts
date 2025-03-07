@@ -3,7 +3,7 @@ import { AccountUserModel } from "@/models/user.model";
 import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from "bcryptjs";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     connectDB();
     const body = await req.json();
@@ -39,7 +39,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       status:200,
       user: savedUser,
     })
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+    }
   }
 }

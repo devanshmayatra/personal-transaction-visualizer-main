@@ -47,8 +47,12 @@ export const LoginForm = () => {
       } else if (res.status === 401){
         toast.error("Invalid Password");
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Login failed");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Login failed !");
+      }
     } finally {
       setLoading(false);
     }

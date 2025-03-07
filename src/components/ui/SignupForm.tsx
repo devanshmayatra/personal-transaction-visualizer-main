@@ -48,8 +48,12 @@ export const SignupForm = () => {
       } else if (res.status === 400) {
         toast.error("User with this email ALready Exists");
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || "Signup failed");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Signup failed");
+      }
     } finally {
       setLoading(false);
     }

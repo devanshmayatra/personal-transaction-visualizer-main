@@ -6,7 +6,6 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/ui/AppSidebar";
-import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,7 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: "Personal Transaction Visualizer",
   description: "Made by Devansh Mayatra",
 };

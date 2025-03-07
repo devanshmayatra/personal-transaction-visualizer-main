@@ -26,8 +26,11 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(updatedTransaction, { status: 200 });
   } catch (error) {
-    console.error("Error updating transaction:", error);
-    return NextResponse.json({ error: "Failed to update transaction" }, { status: 500 });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+    }
   }
 }
 

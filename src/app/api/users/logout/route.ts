@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 connectDB();
 
-export async function GET(req: NextRequest){
+export async function GET(){
   try {
     const response = NextResponse.json({
       message:"Logged out succesfully",
@@ -17,11 +17,11 @@ export async function GET(req: NextRequest){
 
     return response;
 
-  } catch (error : any) {
-    return NextResponse.json({
-      error:error.messsage,
-    },{
-      status:500
-    })
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+    }
   }
 }

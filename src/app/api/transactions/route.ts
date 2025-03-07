@@ -12,8 +12,11 @@ export async function GET (req:NextRequest){
     const transactions = await TransactionModel.find({user:id}).sort({ date: -1 });
     return NextResponse.json(transactions, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch transactions" }, { status: 500 });
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+    }
   }
 };
 
@@ -40,6 +43,10 @@ export async function POST(req:NextRequest){
     return NextResponse.json(newTransaction, { status: 201 });
 
   } catch (error){
-    return NextResponse.json({ error: "Failed to create transaction" }, { status: 500});
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+    }
   }
 }

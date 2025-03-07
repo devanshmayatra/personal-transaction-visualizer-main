@@ -1,4 +1,4 @@
-import { UserModel } from '@/models/user.model';
+import { AccountUserModel } from '@/models/user.model';
 import nodemailer from 'nodemailer';
 import bcryptjs from 'bcryptjs';
 
@@ -8,12 +8,12 @@ export const sendMail = async ({ email, emailType, userId }: { email: string, em
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
 
     if (emailType === "VERIFY") {
-      await UserModel.findByIdAndUpdate(userId, {
+      await AccountUserModel.findByIdAndUpdate(userId, {
         verifyToken: hashedToken,
         verifyTokenExpiry: Date.now() + 3600000
       });
     } else if (emailType === "RESET") {
-      await UserModel.findByIdAndUpdate(userId, {
+      await AccountUserModel.findByIdAndUpdate(userId, {
         forgotPasswordToken: hashedToken,
         forgotPasswordTokenExpiry: Date.now() + 3600000
       });
@@ -46,7 +46,11 @@ export const sendMail = async ({ email, emailType, userId }: { email: string, em
 
     const mailResponse = await transporter.sendMail(mailOptions);
     return mailResponse;
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error) {
+  if (error instanceof Error) {
+    return Error(error.message);
+  } else {
+    return Error("An unknown error occurred");
+  }
   }
 }
