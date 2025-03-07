@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email format"),
@@ -42,9 +43,9 @@ export const LoginForm = () => {
         router.push("/")
         toast.success("Logged in successfully");
         form.reset();
-      } else if ( res.status === 404){
+      } else if (res.status === 404) {
         toast.error("User Doesnt Exist");
-      } else if (res.status === 401){
+      } else if (res.status === 401) {
         toast.error("Invalid Password");
       }
     } catch (error) {
@@ -59,22 +60,22 @@ export const LoginForm = () => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md mx-auto p-4 border rounded-md shadow-sm">
+    <Form {...form} >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md mx-auto p-4 border rounded-md shadow-sm flex flex-col items-center">
         <h2 className="text-xl font-semibold text-center">Login</h2>
 
         <FormField control={form.control} name="email" render={({ field }) => (
-          <FormItem>
+          <FormItem className="w-full">
             <FormLabel>Email</FormLabel>
             <FormControl>
-              <Input type="email" placeholder="Enter your email" {...field} />
+              <Input className="w-full" type="email" placeholder="Enter your email" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )} />
 
         <FormField control={form.control} name="password" render={({ field }) => (
-          <FormItem>
+          <FormItem className="w-full">
             <FormLabel>Password</FormLabel>
             <FormControl>
               <Input type="password" placeholder="Enter your password" {...field} />
@@ -86,6 +87,7 @@ export const LoginForm = () => {
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </Button>
+        <Link className=" text-sm lg:text-lg" href="/signup">Dont have an Account ? Click here to signup !</Link>
       </form>
     </Form>
   );

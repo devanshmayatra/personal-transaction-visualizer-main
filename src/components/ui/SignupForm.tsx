@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
+import Link from "next/link";
 
 const formSchema = z.object({
   name: z.string(),
@@ -61,11 +62,11 @@ export const SignupForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md mx-auto p-4 border rounded-md shadow-sm">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full max-w-md mx-auto p-4 border rounded-md shadow-sm flex flex-col items-center">
         <h2 className="text-xl font-semibold text-center">Signup</h2>
 
         <FormField control={form.control} name="name" render={({ field }) => (
-          <FormItem>
+          <FormItem className="w-full">
             <FormLabel>Name</FormLabel>
             <FormControl>
               <Input placeholder="Enter your name" {...field} />
@@ -75,7 +76,7 @@ export const SignupForm = () => {
         )} />
 
         <FormField control={form.control} name="email" render={({ field }) => (
-          <FormItem>
+          <FormItem className="w-full">
             <FormLabel>Email</FormLabel>
             <FormControl>
               <Input type="email" placeholder="Enter your email" {...field} />
@@ -85,7 +86,7 @@ export const SignupForm = () => {
         )} />
 
         <FormField control={form.control} name="password" render={({ field }) => (
-          <FormItem>
+          <FormItem className="w-full">
             <FormLabel>Password</FormLabel>
             <FormControl>
               <Input type="password" placeholder="Enter your password" {...field} />
@@ -97,6 +98,7 @@ export const SignupForm = () => {
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? "Signing up..." : "Signup"}
         </Button>
+        <Link className=" text-sm lg:text-lg" href="/login">Already have an account ? Click here to Login !</Link>
       </form>
     </Form>
   );

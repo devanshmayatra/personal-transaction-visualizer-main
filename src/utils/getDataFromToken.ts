@@ -20,7 +20,7 @@ export const getDataFromToken = async (req: NextRequest) => {
     }
 
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
-    return decodedToken.id!;
+    return decodedToken.id! || null;
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
