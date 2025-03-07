@@ -48,10 +48,10 @@ export default function TransactionTable({
   }
 
   return (
-    <Table>
+    <Table >
       <TableHeader>
         <TableRow>
-          <TableHead>Date</TableHead>
+          <TableHead className="pl-5">Date</TableHead>
           <TableHead>Description</TableHead>
           <TableHead>Category</TableHead>
           <TableHead>Amount</TableHead>
@@ -63,7 +63,7 @@ export default function TransactionTable({
         {transactions.length > 0 ? (
           transactions.map((transaction) => (
             <TableRow key={transaction._id}>
-              <TableCell>{new Date(transaction.date).toLocaleDateString()}</TableCell>
+              <TableCell className="pl-5">{new Date(transaction.date).toLocaleDateString()}</TableCell>
               <TableCell>{transaction.description}</TableCell>
               <TableCell>{transaction.category}</TableCell>
               <TableCell className="font-medium">₹{transaction.amount.toFixed(2)}</TableCell>

@@ -57,8 +57,10 @@ export default function AppSidebar() {
   useEffect(() => {
     ; (
       async () => {
-        const user = await axios.post("/api/users/aboutme");
-        setUserData(user.data.data);
+        if (!userData) {
+          const user = await axios.post("/api/users/aboutme");
+          setUserData(user.data.data);
+        }
       }
     )()
   }, [pathname])
@@ -78,7 +80,7 @@ export default function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem className="ml-2 text-2xl font-bold">
                 {
-                  userData ? userData.name : "Your UserName"
+                  userData?.name
                 }
               </SidebarMenuItem>
             </SidebarMenu>

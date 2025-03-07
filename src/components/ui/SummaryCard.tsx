@@ -16,11 +16,11 @@ export const SummaryCard = ({ title, value, categoryTotals }: SummaryCardProps) 
       <CardContent className="flex  flex-col flex-wrap" >
         {
           categoryTotals.length > 0 ? categoryTotals.map((total) => (
-            <div key={total.category} className="flex gap-2" >
-              <div className=" text-sm lg:text-lg" key={total.category}>{total.category}</div>
-              <div className=" text-sm lg:text-lg"> - </div>
-              <div className=" text-sm lg:text-lg">₹ {total.total}</div>
-            </div>
+            total.total > 0 ? <div key={total.category} className="flex gap-2" >
+            <div className=" text-sm lg:text-lg" key={total.category}>{total.category}</div>
+            <div className=" text-sm lg:text-lg"> - </div>
+            <div className=" text-sm lg:text-lg">₹ {total.total === 0 ? "No spending" : total.total}</div>
+          </div> : null
           )) : <div className="text-xl lg:text-3xl" >{value}</div>
         }
       </CardContent>

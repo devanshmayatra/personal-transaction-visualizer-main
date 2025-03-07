@@ -34,7 +34,7 @@ export default function RootLayout({
         <SidebarProvider >
           <AppSidebar />
           <main className="w-full">
-            <SidebarTrigger />
+            <SidebarTrigger className="h-10 w-10 scale-180"/>
             {children}
           </main>
           <Toaster richColors position="top-right" />

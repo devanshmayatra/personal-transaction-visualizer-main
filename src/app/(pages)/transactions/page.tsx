@@ -68,7 +68,7 @@ export default function TransactionsPage() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Your Transactions</h1>
-      <div className="flex flex-col gap-x-4 my-5 lg:flex-row">
+      <div className="flex flex-col gap-4 my-5 lg:flex-row">
         <SummaryCard title="Total Expenses" value={`₹${totalExpenses}`} categoryTotals={[]} />
         <SummaryCard title="Category Wise Summary" value={mostRecentTransaction} categoryTotals={categoryTotals} />
         <ShowBudget transactions={transactions} />

@@ -35,6 +35,11 @@ const userSchema = new Schema({
   provider: {
     type: String,
     default: "credentials",
+  },
+  role: {
+    type: String,
+    default: "user",
+    enum: ["user", "admin"],
   }
 }, {
   timestamps: true
@@ -43,11 +48,11 @@ const userSchema = new Schema({
 export const AccountUserModel = models.AccountUser || model("AccountUser", userSchema);
 
 
-  // isVerified: {
-  //   type: Boolean,
-  //   default: false,
-  // },
-  // forgotPasswordToken:String,
-  // forgotPasswordExpires:Date,
-  // verifyToken:String,
-  // verifyTokenExpiry:Date,
+// isVerified: {
+//   type: Boolean,
+//   default: false,
+// },
+// forgotPasswordToken:String,
+// forgotPasswordExpires:Date,
+// verifyToken:String,
+// verifyTokenExpiry:Date,

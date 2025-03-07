@@ -37,7 +37,7 @@ export const MonthlyExpensesChart = ({transactions}:{
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="total" fill="#0FFF00"/>
+          <Bar dataKey="total" fill="#2ECC40"/>
         </BarChart>
       </ResponsiveContainer >
     </div>
