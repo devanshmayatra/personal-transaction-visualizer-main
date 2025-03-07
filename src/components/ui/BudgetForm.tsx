@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const categories = ["Food", "Transport", "Shopping", "Entertainment", "Fashion", "Other"];
+const categories = ["Food", "Transport", "Rent", "Entertainment", "Fashion", "Other"];
 
 export default function BudgetForm({ onBudgetAdded }: { onBudgetAdded: () => void }) {
   const [category, setCategory] = useState("");
