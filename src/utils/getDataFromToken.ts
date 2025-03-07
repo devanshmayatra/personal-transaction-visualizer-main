@@ -19,7 +19,7 @@ export const getDataFromToken = async (req: NextRequest) => {
       throw new Error("TOKEN_SECRET is not set in environment variables");
     }
 
-    const decodedToken : any = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET) as DecodedToken;
     return decodedToken.id!;
   } catch (error) {
     if (error instanceof Error) {
