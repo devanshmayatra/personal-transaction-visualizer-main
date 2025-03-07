@@ -1,15 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { BudgetModel } from "@/models/budget.model";
-import { connectDB } from "@/lib/db";
+import { connectDB } from "@/utils/db";
+import { getDataFromToken } from "@/utils/getDataFromToken";
+import { AccountUserModel } from "@/models/user.model";
+
+connectDB();
 
 export async function GET(req: NextRequest) {
   try {
-    await connectDB();
     const url = new URL(req.url);
     const month = url.searchParams.get("month"); // Get month from query params
     if (!month) return NextResponse.json({ error: "Month is required" }, { status: 400 });
 
-    const budgets = await BudgetModel.find({ month });
+    const id = await getDataFromToken(req);
+
+    const budgets = await BudgetModel.find({ month, user: id });
     return NextResponse.json(budgets, { status: 200 });
   } catch {
     return NextResponse.json({ error: "Failed to fetch budgets" }, { status: 500 });
@@ -18,7 +23,6 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    await connectDB();
     const { category, amount, month } = await req.json();
     console.log(category, amount, month)
 
@@ -26,8 +30,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const newBudget = await BudgetModel.create({ category, amount, month });
+    const id = await getDataFromToken(req);
+
+    const newBudget = await BudgetModel.create({ category, amount, month, user: id });
     await newBudget.save();
+    const user = await AccountUserModel.findById(id);
+    user.budgets.push(newBudget);
+    await user.save();
+
 
     return NextResponse.json(newBudget, { status: 201 });
   } catch {
@@ -37,15 +47,16 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    await connectDB();
     const { id, amount } = await req.json();
 
     if (!id || !amount) return NextResponse.json({ error: "Missing fields" }, { status: 400 });
 
-    const updatedBudget = await BudgetModel.findByIdAndUpdate(id, { amount }, { new: true });
+    const userID = await getDataFromToken(req);
+
+    const updatedBudget = await BudgetModel.findByIdAndUpdate(id, { amount }, { user: { $eq: userID }, new: true });
 
     return NextResponse.json(updatedBudget, { status: 200 });
-  } catch  {
+  } catch {
     return NextResponse.json({ error: "Failed to update budget" }, { status: 500 });
   }
 }

@@ -1,20 +1,24 @@
-import { connectDB } from "@/lib/db";
+import { connectDB } from "@/utils/db";
 import TransactionModel from "@/models/transaction.model";
 import { NextRequest, NextResponse } from "next/server";
+import { getDataFromToken } from "@/utils/getDataFromToken";
 
-export async function PUT (req: NextRequest) {
+connectDB();
+
+export async function PUT(req: NextRequest) {
   try {
-    await connectDB();
 
     const url = new URL(req.url);
     const id = url.pathname.split("/").pop();
     const body = await req.json();
 
+    const userID = await getDataFromToken(req) || "";
+
     if (!body.amount || !body.date || !body.description) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const updatedTransaction = await TransactionModel.findByIdAndUpdate(id, body, { new: true });
+    const updatedTransaction = await TransactionModel.findByIdAndUpdate(id, body, { user: { $eq: userID }, new: true });
 
     if (!updatedTransaction) {
       return NextResponse.json({ error: "Transaction not found" }, { status: 404 });
@@ -27,21 +31,20 @@ export async function PUT (req: NextRequest) {
   }
 }
 
-export async function DELETE(req:NextRequest) {
+export async function DELETE(req: NextRequest) {
   try {
-    await connectDB();
 
     // Extract ID from the request URL
     const url = new URL(req.url);
     const id = url.pathname.split("/").pop();
 
+    const userID = await getDataFromToken(req) || "";
+
     if (!id) {
       return NextResponse.json({ error: "Transaction ID is required" }, { status: 400 });
     }
 
-    console.log("Deleting transaction with ID:", id);
-
-    const deletedTransaction = await TransactionModel.findByIdAndDelete(id);
+    const deletedTransaction = await TransactionModel.findByIdAndDelete(id, { user: { $eq: userID } });
 
     if (!deletedTransaction) {
       return NextResponse.json({ error: "Transaction not found" }, { status: 404 });
@@ -50,6 +53,6 @@ export async function DELETE(req:NextRequest) {
     return NextResponse.json({ message: "Transaction deleted successfully" });
   } catch (error) {
     console.error("Error deleting transaction:", error);
-    return NextResponse.json({ error: "Internal Server Error"}, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

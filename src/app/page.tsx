@@ -1,6 +1,9 @@
+'use client'
+
 import { Card, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
+
   return (
     <div className="flex flex-wrap gap-4 m-5">
       <Card className="flex h-30 w-full justify-center items-center p-7 lg:h-75 lg:w-[calc(50%-20px)]">

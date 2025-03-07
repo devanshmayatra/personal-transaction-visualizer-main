@@ -13,6 +13,10 @@ const BudgetSchema = new Schema({
     type: String,
     required: true
   }, // Format: "YYYY-MM"
+  user:{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }
 }, {
   timestamps: true
 });

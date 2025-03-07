@@ -48,6 +48,7 @@ export default function TransactionsPage() {
     fetchData();
   }, [])
 
+
   // Calculate total expenses
   const totalExpenses = transactions.reduce((acc, txn) => acc + txn.amount, 0);
 

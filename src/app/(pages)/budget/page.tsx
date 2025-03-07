@@ -6,11 +6,14 @@ import { Transaction } from '@/types/transaction'
 import { Budget } from '@/types/budget'
 import React, { useEffect, useState } from 'react'
 import ShowBudget from '@/components/ui/ShowBudget'
+import { useRouter } from 'next/navigation'
 
 const BudgetPage = () => {
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [budgets, setBudgets] = useState<Budget[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     ; (async () => {
@@ -25,6 +28,7 @@ const BudgetPage = () => {
       setBudgets(budgetsData);
     })();
   }, []);
+
 
   const categorySpending = transactions.reduce((acc, tx) => {
     acc[tx.category] = (acc[tx.category] || 0) + tx.amount;

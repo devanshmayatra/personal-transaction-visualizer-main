@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { LogoutButton } from "./LogoutButton"
 
 // Menu items.
 const items = [
@@ -61,6 +62,7 @@ export default function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <LogoutButton/>
       </SidebarContent>
     </Sidebar>
   )

@@ -1,11 +1,15 @@
-import { connectDB } from "@/lib/db";
+import { connectDB } from "@/utils/db";
 import TransactionModel from "@/models/transaction.model";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { getDataFromToken } from "@/utils/getDataFromToken";
+import { AccountUserModel } from "@/models/user.model";
 
-export async function GET (){
+connectDB();
+
+export async function GET (req:NextRequest){
   try{
-    await connectDB();
-    const transactions = await TransactionModel.find().sort({ date: -1 });
+    const id = await getDataFromToken(req);
+    const transactions = await TransactionModel.find({user:id}).sort({ date: -1 });
     return NextResponse.json(transactions, { status: 200 });
   } catch (error) {
     console.error(error);
@@ -13,18 +17,29 @@ export async function GET (){
   }
 };
 
-export async function POST(req:Request){
+export async function POST(req:NextRequest){
   try{
-    await connectDB();
-    const body = await req.json(); // Parse request body
+    const {description , amount , date , category} = await req.json(); // Parse request body
 
-    const newTransaction = await TransactionModel.create(body);
+    const id = await getDataFromToken(req);
+
+    const data = {
+      description,
+      amount,
+      date ,
+      category ,
+      user:id
+    }
+
+    const user = await AccountUserModel.findById(id);
+    const newTransaction = await TransactionModel.create(data);
     await newTransaction.save();
 
+    user.transactions.push(newTransaction._id);
+    await user.save();
     return NextResponse.json(newTransaction, { status: 201 });
 
   } catch (error){
-    console.error(error);
     return NextResponse.json({ error: "Failed to create transaction" }, { status: 500});
   }
 }

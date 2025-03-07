@@ -24,6 +24,10 @@ const transactionSchema = new Schema({
     required: true, 
     enum: ["Food", "Rent", "Entertainment", "Transport", "Fashion", "Others"]
   },
+  user:{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }
 }, {
   timestamps: true
 });
